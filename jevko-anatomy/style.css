@@ -41,3 +41,7 @@ pre {
   outline: 1px solid yellow;
   background: rgb(80, 80, 1);
 }
+
+.gray {
+  background: rgb(62, 62, 62);
+}

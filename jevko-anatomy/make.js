@@ -1,12 +1,14 @@
 import {parseJevko} from 'https://cdn.jsdelivr.net/gh/jevko/parsejevko.js@v0.1.6/mod.js'
 
-const trimPrefixes = jevko => {
+const trimPrefixesAndRemoveComments = jevko => {
   const {subjevkos, suffix} = jevko
 
   const ret = []
 
   for (const {prefix, jevko} of subjevkos) {
-    ret.push({prefix: prefix.trim(), jevko: trimPrefixes(jevko)})
+    const trimmed = prefix.trim()
+    if (trimmed === '--') continue
+    ret.push({prefix: trimmed, jevko: trimPrefixesAndRemoveComments(jevko)})
   }
 
   return {subjevkos: ret, suffix}
@@ -60,6 +62,7 @@ const makeSpanWithClass = clz => jevko => {
 const ctx = new Map([
   ['', toHtml],
   ['#', makeTag('h1')],
+  ['##', makeTag('h2')],
   ['p', makeTag('p')],
   ['em', makeTag('em')],
   ['pre', makeTag('pre')],
@@ -68,13 +71,14 @@ const ctx = new Map([
   ['suf', makeSpanWithClass('suf')],
   ['prefix', makeSpanWithClass('prefix')],
   ['jevko', makeSpanWithClass('jevko')],
+  ['gray', makeSpanWithClass('gray')],
 ])
 
 const source = Deno.readTextFileSync('source.jevko')
 
 const css = `${Deno.readTextFileSync('style.css')}\n${Deno.readTextFileSync('spec.css')}`
 
-const content = toHtml(trimPrefixes(parseJevko(source, {opener: '{', closer: '}'})))
+const content = toHtml(trimPrefixesAndRemoveComments(parseJevko(source, {opener: '{', closer: '}'})))
 
 const document = `<!doctype html>\n<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />\n<style>${css}</style>${content}`
 
