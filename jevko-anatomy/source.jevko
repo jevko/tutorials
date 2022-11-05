@@ -32,7 +32,7 @@ p {We will now break this example down and identify and name its parts.}
 
 p {{Notice that the jevko is not wrapped in square brackets. A jevko which is not wrapped in square brackets is the }em{top}{ or }em{top-level}{ jevko.}}
 
-## {parts of jevkos}
+## {jevko parts: subjevkos and suffix}
 
 p {{A jevko is made out of a number of } sub{.{inline}{subjevkos}} { followed by a } suf{.{inline}{suffix}}{:}}
 
@@ -52,7 +52,7 @@ sub {spouse []}
 suf {object}
 }
 
-## {subjevkos and their parts}
+## {subjevko parts: prefix and jevko}
 
 p {{A }sub{.{inline}subjevko}{ is a kind of a name-value pair:}}
 
@@ -70,7 +70,7 @@ prefix {first name }{[}jevko {.{inline}string}{]}
 
 ## {nested jevkos}
 
-p {{A jevko which is wrapped in square brackets is called a }em{nested}{ jevko.}}
+p {{A jevko which is wrapped in square brackets is called }em{nested}{.}}
 
 ## {trivial jevkos and subjevkos}
 
@@ -225,3 +225,36 @@ suf {.{inline}¶
 }
 
 p {Similar thing is true for all prefixes and suffixes. All whitespace is captured by them.}
+
+p {In fact this this is how all the prefixes and suffixes in our example jevko look like exactly:}
+
+pre {
+prefix {first name }{[}suffix {string}{]}
+prefix {¶
+last name }{[}suffix {string}{]}
+prefix {¶
+is alive }{[}suffix {boolean}{]}
+prefix {¶
+age }{[}suffix {integer}{]}
+prefix {¶
+address }{[}
+prefix {¶
+  street address }{[}suffix {string}{]}
+prefix {¶
+  city }{[}suffix {string}{]}
+prefix {¶
+  state }{[}suffix {string}{]}
+prefix {¶
+  postal code }{[}suffix {string}{]}
+suffix {¶
+}
+{]}
+prefix {¶
+children }{[}suffix {list}{]}
+prefix {¶
+spouse }{[}{]}
+suffix {¶
+object}
+}
+
+p {{Notice that square brackets are }em{not}{ captured either by prefixes or by suffixes.}}

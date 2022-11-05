@@ -51,9 +51,9 @@ const makeTag = tag => jevko => {
 
 const span = makeTag('span')
 
-const makeSpanWithClass = clz => jevko => {
+const makeSpanWithClass = (...clzs) => jevko => {
   const subs = [
-    {prefix: ".", jevko: {subjevkos: [], suffix: clz}},
+    ...clzs.map(clz => ({prefix: ".", jevko: {subjevkos: [], suffix: clz}})),
     ...jevko.subjevkos
   ]
   return span({subjevkos: subs, suffix: jevko.suffix})
@@ -69,6 +69,7 @@ const ctx = new Map([
   ['br', makeTag('br')],
   ['sub', makeSpanWithClass('sub')],
   ['suf', makeSpanWithClass('suf')],
+  ['suffix', makeSpanWithClass('suf', 'inline')],
   ['prefix', makeSpanWithClass('prefix')],
   ['jevko', makeSpanWithClass('jevko')],
   ['gray', makeSpanWithClass('gray')],
