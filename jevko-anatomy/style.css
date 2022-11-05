@@ -1,0 +1,43 @@
+.subjevko {
+  background-color: aqua;
+  border-left: 1px solid red;
+  border-right: 1px solid red;
+}
+
+.suffix {
+  background-color: aquamarine;
+  border-left: 1px solid red;
+  border-right: 1px solid red;
+}
+
+.sub {
+  outline: 1px solid lightblue;
+  background: rgb(1, 60, 80);
+  display: block;
+}
+
+.suf {
+  outline: 1px solid green;
+  background: rgb(0, 66, 0);
+  display: block;
+}
+
+pre {
+  display: inline-block;
+  clear: both;
+}
+
+.jevko {
+  outline: 1px solid orange;
+  background: rgb(98, 71, 2);
+  display: block
+}
+
+.inline {
+  display: inline;
+}
+
+.prefix {
+  outline: 1px solid yellow;
+  background: rgb(80, 80, 1);
+}
