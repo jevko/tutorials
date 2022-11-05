@@ -1,17 +1,32 @@
 # Jevko parser tutorial
 
+(not finished)
+
+In this tutorial we will break down and describe a simple Jevko parser to make it easy to implement in any programming language.
+
+This tutorial is aimed at hackers who would like to quickly implement support for Jevko in their favorite programming language, to enable others to start using it.
+
+The idea is that this tutorial be kept as simple and as easy as possible, to reduce the barrier of entry to absolute minimum.
+
+The parser we will be breaking down is written in TypeScript, but no advanced features of the language are used, and the code is explained in detail. TypeScript simply plays the role of executable pseudocode.
+
 # Prerequisites
 
 ## Data types
 
 [spec](https://github.com/jevko/specifications/blob/master/draft-standard-grammar.md)
 
-## Jevko
+### Jevko
 
 ```abnf
 ; start symbol, main rule #1
 Jevko = *Subjevko Suffix
 ```
+
+<!-- <details>
+<summary>ABNF</summary>
+todo
+</details> -->
 
 A tree with subtrees.
 
@@ -33,7 +48,7 @@ function Jevko(subjevkos = [], suffix = ''): Jevko {
 }
 ```
 
-## Subjevko
+### Subjevko
 
 ```abnf
 ; main rule #2, mutually recursive with #1
