@@ -13,13 +13,13 @@
 }
 
 .sub {
-  outline: 1px solid lightblue;
+  border: 1px solid lightblue;
   background: rgb(1, 60, 80);
   display: block;
 }
 
 .suf {
-  outline: 1px solid green;
+  border: 1px solid green;
   background: rgb(0, 66, 0);
   display: block;
 }
@@ -27,10 +27,11 @@
 pre {
   display: inline-block;
   clear: both;
+  line-height: 1.7;
 }
 
 .jevko {
-  outline: 1px solid orange;
+  border: 1px solid orange;
   background: rgb(98, 71, 2);
   display: block
 }
@@ -40,7 +41,7 @@ pre {
 }
 
 .prefix {
-  outline: 1px solid yellow;
+  border: 1px solid yellow;
   background: rgb(80, 80, 1);
 }
 
@@ -183,5 +184,7 @@ address </span>[<span class="prefix">¶
 </span>]<span class="prefix">¶
 children </span>[<span class="suf inline">list</span>]<span class="prefix">¶
 spouse </span>[]<span class="suf inline">¶
-object</span></pre><h1 ><a id="prefixes-and-suffixes" href="#prefixes-and-suffixes">#</a> prefixes and suffixes</h1><p >Notice that square brackets are <em >not</em> captured either by prefixes or by suffixes: they separate them.</p><p >A prefix is <em >always</em> followed by <code >[</code> (an opening bracket): they imply each other.</p><p >Similarly a suffix is followed by <code >]</code> (a closing bracket) -- with a single exception: <a href="#top-jevko">the top jevko's</a> suffix, which always comes at the end, is not.</p><h1 ><a id="trimming" href="#trimming">#</a> trimming</h1><p >todo</p><pre ><span class="prefix">¶
-  street address </span></pre><p >into</p><pre ><span class="prefix">street address</span></pre><p ><a href="https://tc39.es/ecma262/multipage/text-processing.html#sec-string.prototype.trim">ecma262: String.prototype.trim()</a></p>
+object</span></pre><h1 ><a id="prefixes-and-suffixes" href="#prefixes-and-suffixes">#</a> prefixes and suffixes</h1><p >Notice that square brackets are <em >not</em> captured either by prefixes or by suffixes: they separate them.</p><p >A prefix is <em >always</em> followed by <code >[</code> (an opening bracket): they imply each other.</p><p >Similarly a suffix is followed by <code >]</code> (a closing bracket) -- with a single exception: <a href="#top-jevko">the top jevko's</a> suffix, which always comes at the end, is not.</p><h1 ><a id="normalization" href="#normalization">#</a> normalization</h1><p >Often when processing jevkos we might prefer to normalize text.</p><p >Perhaps the most common form of normalization is prefix trimming -- discarding whitespace around prefixes. This would turn prefixes like:</p><pre ><span class="prefix">¶
+  street address </span></pre><br  /><pre ><span class="prefix">      street address     ¶
+
+</span></pre><br  /><pre ><span class="prefix"> street address </span></pre><p >into:</p><pre ><span class="prefix">street address</span></pre><p >After such normalization prefixes that differed only by the surrounding whitespace will become identical. This is desirable if we consider this whitespace to be visual aid for humans writing and reading jevkos rather than information relevant for machines processing them.</p><p ><a href="https://tc39.es/ecma262/multipage/text-processing.html#sec-string.prototype.trim">ecma262: String.prototype.trim()</a></p>

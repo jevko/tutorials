@@ -230,8 +230,8 @@ p {In fact this this is how all the prefixes and suffixes in our example jevko l
 
 pre {
 prefix {first name }{[}suffix {string}{]}
-prefix {¶
-last name }{[}suffix {string}{]}
+prefix {{¶
+last name }}{[}suffix {string}{]}
 prefix {¶
 is alive }{[}suffix {boolean}{]}
 prefix {¶
@@ -273,24 +273,44 @@ p {
   { (a closing bracket) -- with a single exception: } a{href={#top-jevko}{the top jevko's}}{ suffix, which always comes at the end, is not.}
 }
 
-# {trimming}
+# {normalization}
 
-p {{todo}}
+p {Often when processing jevkos we might prefer to normalize text.}
+
+p {Perhaps the most common form of normalization is prefix trimming -- discarding whitespace around prefixes. This would turn prefixes like:}
 
 pre {
 prefix {¶
   street address }
 }
 
-p {into}
+br {}
+
+pre {
+prefix {      street address     ¶
+
+}
+}
+
+br {}
+
+pre {
+prefix { street address }
+}
+
+p {into:}
 
 pre {
 prefix {street address}
 }
 
+p {After such normalization prefixes that differed only by the surrounding whitespace will become identical. This is desirable if we consider this whitespace to be visual aid for humans writing and reading jevkos rather than information relevant for machines processing them.}
+
+-- {This is not always the case}
+
 p {
-  a {
-    href={https://tc39.es/ecma262/multipage/text-processing.html#sec-string.prototype.trim}
+  @ {
+    {https://tc39.es/ecma262/multipage/text-processing.html#sec-string.prototype.trim}
     {ecma262: String.prototype.trim()}
   }
 }

@@ -11,13 +11,13 @@
 }
 
 .sub {
-  outline: 1px solid lightblue;
+  border: 1px solid lightblue;
   background: rgb(1, 60, 80);
   display: block;
 }
 
 .suf {
-  outline: 1px solid green;
+  border: 1px solid green;
   background: rgb(0, 66, 0);
   display: block;
 }
@@ -25,10 +25,11 @@
 pre {
   display: inline-block;
   clear: both;
+  line-height: 1.7;
 }
 
 .jevko {
-  outline: 1px solid orange;
+  border: 1px solid orange;
   background: rgb(98, 71, 2);
   display: block
 }
@@ -38,7 +39,7 @@ pre {
 }
 
 .prefix {
-  outline: 1px solid yellow;
+  border: 1px solid yellow;
   background: rgb(80, 80, 1);
 }
 
