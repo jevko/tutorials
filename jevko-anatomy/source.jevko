@@ -1,4 +1,4 @@
-# {Anatomy of a jevko}
+# {anatomy of a jevko}
 
 p {This is an informal description of the various elements of the Jevko syntax.}
 
@@ -124,7 +124,7 @@ p {{A jevko with at least one subjevko is called }em{complex}{.}}
 
 p {A subjevko whose jevko is complex is itself called complex.}
 
-# {Whitespace}
+# {whitespace}
 
 p {Whitespace is characters such as spaces, new lines, and tabs.}
 
@@ -258,3 +258,7 @@ object}
 }
 
 p {{Notice that square brackets are }em{not}{ captured either by prefixes or by suffixes: they separate them.}}
+
+p {{Another important observation to internalize is that a prefix is always followed by }code{[}{ (an opening bracket): they imply each other.}}
+
+p {{Similarly a suffix is followed by }code{]}{ (a closing bracket) -- with a single exception: } a{href={#top-jevko}{the top jevko's}}{ suffix, which always comes at the end, is not.}}

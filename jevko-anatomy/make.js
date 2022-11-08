@@ -1,18 +1,4 @@
-import {parseJevko} from 'https://cdn.jsdelivr.net/gh/jevko/parsejevko.js@v0.1.6/mod.js'
-
-const trimPrefixesAndRemoveComments = jevko => {
-  const {subjevkos, suffix} = jevko
-
-  const ret = []
-
-  for (const {prefix, jevko} of subjevkos) {
-    const trimmed = prefix.trim()
-    if (trimmed === '--') continue
-    ret.push({prefix: trimmed, jevko: trimPrefixesAndRemoveComments(jevko)})
-  }
-
-  return {subjevkos: ret, suffix}
-}
+import {parseJevkoStream, trimPrefixes, jevkoStreamToTree, removeByPrefix} from 'https://cdn.jsdelivr.net/gh/jevko/jevkostream.js@0.1.0/mod.js'
 
 const toHtml = jevko => {
   const {subjevkos, suffix} = jevko
@@ -59,13 +45,52 @@ const makeSpanWithClass = (...clzs) => jevko => {
   return span({subjevkos: subs, suffix: jevko.suffix})
 }
 
+// todo: extract
+const suffixToJevko = suffix => {
+  return {
+    subjevkos: [],
+    suffix,
+  }
+}
+
+const makeTextNode = text => {
+  return {
+    prefix: "", 
+    jevko: suffixToJevko(text),
+  }
+}
+
+const makeTagWithAnchor = tag => {
+  const t = makeTag(tag)
+  return jevko => {
+    const id = jevko.suffix.toLowerCase().replaceAll(' ', '-')
+
+    const tree = sourceToTree(
+      `a {id={${id}}href={#${id}}{#}}`
+    )
+
+    const j2 = {
+      subjevkos: [
+        ...jevko.subjevkos,
+        ...tree.subjevkos,
+        makeTextNode(' ' + jevko.suffix),
+      ],
+      suffix: "",
+    }
+
+    return t(j2)
+  }
+}
+
 const ctx = new Map([
   ['', toHtml],
-  ['#', makeTag('h1')],
-  ['##', makeTag('h2')],
+  ['#', makeTagWithAnchor('h1')],
+  ['##', makeTagWithAnchor('h2')],
+  ['a', makeTag('a')],
   ['p', makeTag('p')],
   ['em', makeTag('em')],
   ['pre', makeTag('pre')],
+  ['code', makeTag('code')],
   ['br', makeTag('br')],
   ['sub', makeSpanWithClass('sub')],
   ['suf', makeSpanWithClass('suf')],
@@ -79,7 +104,26 @@ const source = Deno.readTextFileSync('source.jevko')
 
 const css = `${Deno.readTextFileSync('style.css')}\n${Deno.readTextFileSync('spec.css')}`
 
-const content = toHtml(trimPrefixesAndRemoveComments(parseJevko(source, {opener: '{', closer: '}'})))
+const sourceToTree = source => {
+  const stream = parseJevkoStream(
+    trimPrefixes(
+      removeByPrefix(
+        jevkoStreamToTree({
+          end: (parent) => parent
+        })
+      )
+    ),
+    {
+      opener: '{',
+      closer: '}',
+    }
+  )
+  
+  stream.chunk(source)
+  return stream.end()
+}
+
+const content = toHtml(sourceToTree(source))
 
 const document = `<!doctype html>\n<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />\n<style>${css}</style>${content}`
 
